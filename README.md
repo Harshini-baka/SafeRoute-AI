@@ -121,6 +121,8 @@ Therefore, it can prefer a slightly longer route through safe cells over a short
                           v
                    Pygame Visualization
 
+```
+
 ## Project Structure
 
 SafeRoute-AI/
