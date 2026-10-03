@@ -118,3 +118,8 @@ class HazardSimulator:
 
         for row, col in new_smoke:
             self.building.layout[row][col] = self.building.SMOKE
+
+    def update(self):
+        self.create_smoke_from_fire()
+        self.spread_smoke()
+        self.spread_fire()

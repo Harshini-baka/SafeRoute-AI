@@ -110,8 +110,8 @@ def main():
         current_time = pygame.time.get_ticks()
 
         if current_time - last_hazard_update >= hazard_interval:
-            hazard.spread_fire()
-            last_hazard_update = current_time
+          hazard.spread_fire()
+          last_hazard_update = current_time
 
         start = building.get_position(Building.PERSON)
         goal = building.get_position(Building.EXIT)
