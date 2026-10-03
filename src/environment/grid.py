@@ -1,5 +1,5 @@
 import pygame
-
+from building import Building
 
 # Grid dimensions
 ROWS = 15
@@ -7,13 +7,6 @@ COLS = 20
 
 # Size of each grid cell
 CELL_SIZE = 40
-
-# Cell types
-EMPTY = 0
-WALL = 1
-EXIT = 2
-PERSON = 3
-
 
 # Building layout
 BUILDING = [
@@ -34,6 +27,7 @@ BUILDING = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ]
 
+building = Building(BUILDING)
 
 def draw_grid(screen):
     for row in range(ROWS):
@@ -44,13 +38,13 @@ def draw_grid(screen):
             x = col * CELL_SIZE
             y = row * CELL_SIZE
 
-            if cell == WALL:
+            if cell == Building.WALL:
                 color = (40, 40, 40)
 
-            elif cell == EXIT:
+            elif cell == Building.EXIT:
                 color = (0, 180, 0)
 
-            elif cell == PERSON:
+            elif cell == Building.PERSON:
                 color = (0, 100, 255)
 
             else:
