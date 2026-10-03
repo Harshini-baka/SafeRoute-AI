@@ -2,6 +2,7 @@ import pygame
 from src.environment.building import Building
 from src.pathfinding.bfs import bfs
 from src.pathfinding.dijkstra import dijkstra
+from src.environment.hazard import HazardSimulator
 
 # Size of each grid cell
 CELL_SIZE = 40
@@ -9,8 +10,8 @@ CELL_SIZE = 40
 # Building layout
 BUILDING = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 3, 4, 4, 4, 4, 4, 2, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 3, 0, 0, 0, 0, 0, 2, 1],
+    [1, 0, 0, 0, 5, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]
@@ -20,11 +21,10 @@ ROWS = len(BUILDING)
 COLS = len(BUILDING[0])
 
 building = Building(BUILDING)
+hazard = HazardSimulator(building)
 start = building.get_position(Building.PERSON)
 goal = building.get_position(Building.EXIT)
-
 path = dijkstra(building, start, goal)
-
 print("Start:", start)
 print("Goal:", goal)
 print("Dijkstra path:", path)
@@ -86,11 +86,22 @@ def main():
     pygame.display.set_caption("SafeRoute AI - Building Environment")
 
     clock = pygame.time.Clock()
+    last_hazard_update = pygame.time.get_ticks()
+    hazard_interval = 1000
 
     running = True
 
     while running:
+        current_time = pygame.time.get_ticks()
 
+        if current_time - last_hazard_update >= hazard_interval:
+            hazard.spread_fire()
+            last_hazard_update = current_time
+
+        start = building.get_position(Building.PERSON)
+        goal = building.get_position(Building.EXIT)
+
+        path = dijkstra(building, start, goal)
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
