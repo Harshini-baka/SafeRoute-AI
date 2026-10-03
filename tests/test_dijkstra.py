@@ -17,19 +17,11 @@ def test_dijkstra_finds_path():
     start = building.get_position(Building.PERSON)
     goal = building.get_position(Building.EXIT)
 
-    costs = {
-        (1, 2): 10,
-        (1, 3): 10,
-        (1, 4): 10
-    }
-
     path = dijkstra(
         building,
         start,
-        goal,
-        costs
+        goal
     )
-
     assert path is not None
     assert path[0] == start
     assert path[-1] == goal

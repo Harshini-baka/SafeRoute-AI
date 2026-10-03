@@ -7,12 +7,11 @@ def test_bfs_and_dijkstra_choose_different_routes():
 
     layout = [
         [1, 1, 1, 1, 1, 1, 1],
-        [1, 3, 0, 0, 0, 2, 1],
+        [1, 3, 4, 4, 4, 2, 1],
         [1, 0, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 1, 1, 1]
     ]
-
     building = Building(layout)
 
     start = building.get_position(Building.PERSON)
@@ -24,17 +23,10 @@ def test_bfs_and_dijkstra_choose_different_routes():
         goal
     )
 
-    costs = {
-        (1, 2): 10,
-        (1, 3): 10,
-        (1, 4): 10
-    }
-
     dijkstra_path = dijkstra(
         building,
         start,
-        goal,
-        costs
+        goal
     )
 
     assert bfs_path is not None

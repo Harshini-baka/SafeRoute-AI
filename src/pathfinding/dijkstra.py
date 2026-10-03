@@ -1,7 +1,7 @@
 import heapq
 
 
-def dijkstra(building, start, goal, costs):
+def dijkstra(building, start, goal):
 
     priority_queue = [(0, start)]
 
@@ -42,7 +42,10 @@ def dijkstra(building, start, goal, costs):
             if not is_valid_cell(building, new_row, new_col):
                 continue
 
-            movement_cost = costs.get(neighbor, 1)
+            movement_cost = building.get_cost(new_row, new_col)
+
+            if movement_cost == float("inf"):
+                continue
 
             new_cost = current_cost + movement_cost
 
