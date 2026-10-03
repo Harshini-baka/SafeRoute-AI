@@ -79,13 +79,13 @@ def reconstruct_path(parent, goal):
 if __name__ == "__main__":
 
     from src.environment.building import Building
-    
+
     layout = [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 3, 0, 0, 0, 0, 0, 0, 2, 1],
-        [1, 0, 0, 1, 1, 1, 1, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        [1, 1, 1, 1, 1, 1, 1],
+        [1, 3, 0, 1, 0, 2, 1],
+        [1, 0, 0, 1, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1]
     ]
 
     building = Building(layout)
@@ -94,6 +94,12 @@ if __name__ == "__main__":
     goal = building.get_position(Building.EXIT)
 
     path = bfs(building, start, goal)
+
+    if path is not None:
+        print("Number of cells:", len(path))
+        print("Number of moves:", len(path) - 1)
+    else:
+        print("No route available.")
 
     print("Start:", start)
     print("Goal:", goal)
