@@ -1,42 +1,33 @@
 import pygame
 from src.environment.building import Building
 from src.pathfinding.bfs import bfs
-
-# Grid dimensions
-ROWS = 15
-COLS = 20
+from src.pathfinding.dijkstra import dijkstra
 
 # Size of each grid cell
 CELL_SIZE = 40
 
 # Building layout
 BUILDING = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 3, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 3, 4, 4, 4, 4, 4, 2, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]
+
+# Grid dimensions
+ROWS = len(BUILDING)
+COLS = len(BUILDING[0])
 
 building = Building(BUILDING)
 start = building.get_position(Building.PERSON)
 goal = building.get_position(Building.EXIT)
 
-path = bfs(building, start, goal)
+path = dijkstra(building, start, goal)
 
 print("Start:", start)
 print("Goal:", goal)
-print("Path:", path)
+print("Dijkstra path:", path)
 
 def draw_grid(screen, path):
     for row in range(ROWS):
@@ -56,6 +47,12 @@ def draw_grid(screen, path):
 
             elif cell == Building.PERSON:
                 color = (0, 100, 255)
+
+            elif cell == Building.SMOKE:
+                color=(120,120,120)
+
+            elif cell==Building.FIRE:
+                color=(255, 80, 0)
 
             elif path is not None and position in path:
                 color = (255, 220, 100)
