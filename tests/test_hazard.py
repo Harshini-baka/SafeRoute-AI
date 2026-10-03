@@ -1,6 +1,6 @@
 from src.environment.building import Building
 from src.environment.hazard import HazardSimulator
-
+from unittest.mock import patch
 
 def test_fire_spreads_to_adjacent_cells():
 
@@ -15,7 +15,8 @@ def test_fire_spreads_to_adjacent_cells():
 
     hazard = HazardSimulator(building)
 
-    hazard.spread_fire()
+    with patch("random.random", return_value=0.0):
+        hazard.spread_fire()
 
     assert building.layout[1][1] == Building.FIRE
     assert building.layout[1][3] == Building.FIRE
@@ -34,12 +35,12 @@ def test_smoke_spreads_to_adjacent_cells():
 
     hazard = HazardSimulator(building)
 
-    hazard.spread_smoke()
+    with patch("random.random", return_value=0.0):
+        hazard.spread_smoke()
 
     assert building.layout[1][1] == Building.SMOKE
     assert building.layout[1][3] == Building.SMOKE
     assert building.layout[2][2] == Building.SMOKE
-
 
 def test_fire_creates_smoke():
 

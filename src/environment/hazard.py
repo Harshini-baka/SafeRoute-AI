@@ -1,7 +1,11 @@
+import random
+
 class HazardSimulator:
 
     def __init__(self, building):
         self.building = building
+        self.fire_spread_rate = 0.5
+        self.smoke_spread_rate = 0.7
 
     def spread_fire(self):
 
@@ -38,7 +42,8 @@ class HazardSimulator:
             cell = self.building.layout[new_row][new_col]
 
             if cell == self.building.EMPTY:
-                new_fire.append((new_row, new_col))
+              if random.random() < self.fire_spread_rate:
+                 new_fire.append((new_row, new_col))
 
       for row, col in new_fire:
         self.building.layout[row][col] = self.building.FIRE
@@ -114,7 +119,8 @@ class HazardSimulator:
                 cell = self.building.layout[new_row][new_col]
 
                 if cell == self.building.EMPTY:
-                    new_smoke.append((new_row, new_col))
+                    if random.random() < self.smoke_spread_rate:
+                        new_smoke.append((new_row, new_col))
 
         for row, col in new_smoke:
             self.building.layout[row][col] = self.building.SMOKE
