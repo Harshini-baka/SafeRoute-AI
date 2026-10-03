@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SafeRoute AI
 
 SafeRoute AI is an AI-based emergency escape navigation system designed to simulate intelligent evacuation inside a building during fire or other emergency situations.
@@ -29,3 +30,7 @@ The system will model a building environment and determine safe escape routes wh
 ## Project Status
 
 🚧 Development started
+=======
+# SafeRoute-AI
+An AI-based emergency escape navigation system for dynamic building evacuation.
+>>>>>>> f458e7935c0b5275616ce7332fb93c696dd1f614
