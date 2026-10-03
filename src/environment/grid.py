@@ -73,6 +73,21 @@ def draw_grid(screen, path):
                 1
             )
 
+def draw_message(screen, message):
+    font = pygame.font.Font(None, 30)
+
+    text = font.render(
+        message,
+        True,
+        (255, 255, 255)
+    )
+
+    text_rect = text.get_rect(
+        center=screen.get_rect().center
+    )
+
+    screen.blit(text, text_rect)
+
 
 def main():
 
@@ -107,7 +122,13 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        draw_grid(screen,path)
+        draw_grid(screen, path)
+
+        if path is None:
+            draw_message(
+                screen,
+                "NO SAFE ROUTE AVAILABLE"
+        )
 
         pygame.display.flip()
 
