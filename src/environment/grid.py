@@ -1,3 +1,4 @@
+import random
 import pygame
 from src.environment.building import Building
 from src.pathfinding.bfs import bfs
@@ -20,14 +21,7 @@ BUILDING = [
 ROWS = len(BUILDING)
 COLS = len(BUILDING[0])
 
-building = Building(BUILDING)
-hazard = HazardSimulator(building)
-start = building.get_position(Building.PERSON)
-goal = building.get_position(Building.EXIT)
-path = dijkstra(building, start, goal)
-print("Start:", start)
-print("Goal:", goal)
-print("Dijkstra path:", path)
+
 
 def draw_grid(screen, path):
     for row in range(ROWS):
@@ -88,9 +82,36 @@ def draw_message(screen, message):
 
     screen.blit(text, text_rect)
 
+def draw_status(screen, path):
+
+    font = pygame.font.Font(None, 30)
+
+    if path is None:
+        message = "NO SAFE ROUTE"
+    else:
+        message = f"SAFE ROUTE | Steps: {len(path) - 1}"
+
+    text = font.render(
+        message,
+        True,
+        (255, 255, 255)
+    )
+
+    screen.blit(text, (10, 10))
+
 
 def main():
 
+    random.seed(42)
+    building = Building(BUILDING)
+    hazard = HazardSimulator(building)
+    start = building.get_position(Building.PERSON)
+    goal = building.get_position(Building.EXIT)
+    path = dijkstra(building, start, goal)
+    print("Start:", start)
+    print("Goal:", goal)
+    print("Dijkstra path:", path)
+    
     pygame.init()
 
     width = COLS * CELL_SIZE
@@ -102,7 +123,7 @@ def main():
 
     clock = pygame.time.Clock()
     last_hazard_update = pygame.time.get_ticks()
-    hazard_interval = 1000
+    hazard_interval = 2000
 
     running = True
 
@@ -123,6 +144,7 @@ def main():
                 running = False
 
         draw_grid(screen, path)
+        draw_status(screen, path)
 
         if path is None:
             draw_message(
