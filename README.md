@@ -11,7 +11,15 @@ The system represents a building as a grid containing walls, an evacuee, an exit
 As fire and smoke spread, the system updates the building and recalculates the route.
 
 The simulation is visualized using Pygame.
+## 🖥️ Simulation Preview
 
+### Initial State
+
+![Initial simulation state](assets/ss/initial-state.png)
+
+### Dynamic Hazard State
+
+![Dynamic hazard simulation](assets/ss/hazard-spread.png)
 ## Problem Statement
 
 During an emergency such as a building fire, the shortest path to an exit may not always be the safest path.
